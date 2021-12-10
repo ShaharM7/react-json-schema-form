@@ -1,0 +1,11 @@
+{
+  "numberKey": 3.14,
+  "integerKey": 42,
+  "stringKey": "Shahar was here",
+  "booleanKey": true,
+  "listOfStrings": [
+    "Shahar",
+    "is",
+    "here"
+  ]
+}
