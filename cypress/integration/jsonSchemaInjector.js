@@ -8,19 +8,9 @@ context('Visit to json schema form website', () => {
 
         cy.fixture('data.json').then((jsonObject) => {
 
-            cy.log(jsonObject)
-            cy.log(jsonObject.keys);
-            cy.log(jsonObject.values)
-
             for (const [key, value] of Object.entries(jsonObject)) {
-                
-                cy.log(key)
-                cy.log(value)
 
-                if (isArray(key)) {
-
-                    cy.log("Is key array ? ", isArray(key))
-                    cy.log("Is value array ? ", isArray(value))
+                if (value.constructor.name === 'Array' || value.constructor.name === 'Object') {
                     buildComplexElement(key, value)
                 } else {
                     buildBasicElement(key, value)
@@ -35,18 +25,20 @@ const addItemButtonXpath = "./button[contains(@class, 'array-item-add')]";
 
 function buildArrayElement(key, value) {
 
-    const arrayElement = cy.xpath("//h5[normalize-space()=" + key + "]/../..")
-
-    arrayElement.xpath(addItemButtonXpath).click()
-
+    cy.xpath("//h5[normalize-space()=" + key + "]/../..").xpath(addItemButtonXpath).click()
 }
 
-function buildObjectElement(key, value) {
+function buildObjectElement() {
 
 }
 
 function buildComplexElement(key, value) {
-    buildArrayElement(key, value)
+
+    if (value.constructor.name === 'Array') {
+        buildArrayElement(key, value)
+    } else if (value.constructor.name === 'Object') {
+        buildObjectElement()
+    }
 }
 
 function buildBasicElement(key, value) {
@@ -78,6 +70,8 @@ function buildBasicElement(key, value) {
     })
 }
 
-function isArray(key) {
-    return Object.prototype.toString.call(key) === '[object Array]';
+function Inject(arrayElements) {
+    for (const basicElement in arrayElements) {
+
+    }
 }

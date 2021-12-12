@@ -1,0 +1,17 @@
+name: E2E in custom container
+on: [ push ]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    container: cypress/browsers:node16.5.0-chrome94-ff93
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          spec: cypress/integration/jsonSchemaInjector.js
