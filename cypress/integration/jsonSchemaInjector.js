@@ -25,7 +25,7 @@ const addItemButtonXpath = "./button[contains(@class, 'array-item-add')]";
 
 function buildArrayElement(key, value) {
 
-    cy.xpath("//h5[normalize-space()=" + key + "]/../..").xpath(addItemButtonXpath).click()
+    //cy.xpath("//h5[normalize-space()=" + key + "]/../..").xpath(addItemButtonXpath).click()
 }
 
 function buildObjectElement() {
