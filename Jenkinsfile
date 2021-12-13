@@ -5,7 +5,6 @@ pipeline {
     }
   }
 
-
   stages {
     stage('build') {
       steps {
@@ -22,16 +21,16 @@ pipeline {
     }
 
     stage('Run e2e tests') {
-          steps {
-            sh 'npm run cy:run'
-          }
+         steps {
+           sh 'npm run cy:run'
+         }
     }
   }
 
-//   post {
-//     always {
-//       echo 'Stopping local server'
-//       sh 'pkill -f http-server'
-//     }
-//   }
+  post {
+    always {
+      echo 'Stopping local server'
+      sh 'pkill -f http-server'
+    }
+  }
 }
