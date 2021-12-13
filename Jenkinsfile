@@ -1,12 +1,10 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/base:16.13.0'
-    }
-  }
-
+  agent none
   stages {
     stage('build') {
+    agent {
+           docker { image 'node:16.13.1' }
+          }
       steps {
         sh 'npm install --force'
         sh 'npm ci'
@@ -15,15 +13,21 @@ pipeline {
     }
 
     stage('start local server') {
+      agent {
+       docker { image 'node:16.13.1' }
+      }
       steps {
         sh 'npm start'
       }
     }
 
     stage('Run e2e tests') {
-         steps {
-           sh 'npm run cy:run'
-         }
+      agent {
+        docker { image 'cypress/base:16.13.0' }
+      }
+      steps {
+        sh 'npm run cy:run'
+      }
     }
   }
 
